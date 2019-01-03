@@ -1,12 +1,10 @@
 import React from "react"
 import { Button } from 'reactstrap';
 import { Card, CardTitle, CardText, CardImg, CardBody,CardSubtitle } from 'reactstrap';
-import axios from "axios"
 
 class Item extends React.Component {
     addItemToCart = (e) => {
-        axios.patch(`http://localhost:8082/api/cameras/${e.target.value}/add`)
-        .then(console.log("an item was added to the cart"))
+        this.props.addToCart(e.target.attributes.value.value)
     }
     render(){
         return (

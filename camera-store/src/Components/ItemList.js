@@ -14,7 +14,7 @@ class ItemList extends React.Component {
     render () {
         let filteredCams = this.props.cameras.filter(cam => cam.name.includes(this.state.searchBar))
         let camera = [];
-        camera = filteredCams.map(item => <Item key={item.id} cameraDetail={item} />)
+        camera = filteredCams.map(item => <Item key={item.id} addToCart={this.props.addToCart} cameraDetail={item} />)
 
         return (
             <>

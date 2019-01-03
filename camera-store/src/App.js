@@ -23,9 +23,44 @@ class App extends Component {
     })
   }
   removeFromCart = (someParam) => {
-    console.log(someParam)
+    console.log("An item with an id of", someParam, "was removed from the cart")
     let filteredObj= this.state.cameras.filter(cam => cam.id == someParam)
-    axios.patch(`http://localhost:8082/api/cameras/${someParam}/remove`).then()
+    axios.patch(`http://localhost:8082/api/cameras/${someParam}/remove`).then(
+      this.setState(prevState => ({
+        cameras: prevState.cameras.reduce((acc, cv) => {
+          if(cv.id == someParam ){
+            return [
+              ...acc, 
+              {
+                ...cv, 
+                inCart: false
+              }
+            ]
+          }
+          return [...acc, cv]
+        },[])
+  }))
+      )
+  }
+  addToCart = (someParam) => {
+    console.log("An item with an id",someParam, " was added to the cart")
+    axios.patch(`http://localhost:8082/api/cameras/${someParam}/add`)
+    .then(
+      this.setState(prevState => ({
+        cameras: prevState.cameras.reduce((acc, cv) => {
+          if(cv.id == someParam ){
+            return [
+              ...acc, 
+              {
+                ...cv, 
+                inCart: true
+              }
+            ]
+          }
+          return [...acc, cv]
+        },[])
+  }))
+      )
   }
 
   render() {
@@ -35,7 +70,7 @@ class App extends Component {
         <div className="container">
           <div className="row">
             <div className="col">
-              <ItemList updateSearchBarText={this.updateSearchBarText} cameras={this.state.cameras}/>
+              <ItemList updateSearchBarText={this.updateSearchBarText} addToCart={this.addToCart} cameras={this.state.cameras}/>
             </div>
             <div className="col-4">
               <ShoppingCart  removeFromCart={this.removeFromCart} cameras={this.state.cameras}/>
@@ -58,5 +93,5 @@ export default App;
 // add styling to your cart --Done
 // add filter form - Filter functions for Camera Name
 // Call from Api instead of hardcoded state -- DONE
-// On Click update api to add item to cart -- Updates API But doesnt rerender the page. --Possible soloutions this.setState after updating api -- 
+// On Click update api to add item to cart -- DONE ADD and REMOVE  
 // Have Shopping cart float based on user scroll 
