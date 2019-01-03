@@ -17,10 +17,10 @@ class ShoppingCart extends React.Component {
                         <Button color="light" value={item.id}onClick={this.removeFromCart} outline>{item.name} <Badge>Remove From Cart</Badge></Button>
                     </div>)}
                 </div>
-                <p>Subtotal: {(itemsInCart.reduce((acc, cv) => acc + cv.price ,0)).toFixed(2)}</p>
+                <p>Subtotal: ${(itemsInCart.reduce((acc, cv) => acc + cv.price ,0)).toFixed(2)}</p>
                 {/* Tax will be 8.6% */}
-                <p>Tax: {(itemsInCart.reduce((acc, cv) => acc + cv.price ,0)*.086).toFixed(2)} </p> 
-                <p>Total: {(itemsInCart.reduce((acc, cv) => acc + cv.price ,0)*1.086).toFixed(2)}</p>
+                <p>Tax: ${(itemsInCart.reduce((acc, cv) => acc + cv.price ,0)*.086).toFixed(2)} </p> 
+                <p>Total: ${(itemsInCart.reduce((acc, cv) => acc + cv.price ,0)*1.086).toFixed(2)}</p>
                 <button> Checkout</button>
 
             </div>
