@@ -2,31 +2,32 @@ import React, { Component } from 'react';
 import Header from "./Components/Header";
 import ItemList from "./Components/ItemList";
 import ShoppingCart from "./Components/ShoppingCart";
+import axios from "axios"
 
 
 import './App.css';
 
 class App extends Component {
   state = {
-    cameras:[],
-    searchBarTextGlobal: ""
+    cameras:[]
   }
   async componentDidMount(){
     const camList = await fetch('http://localhost:8082/api/cameras')
     const json = await camList.json()
     this.setState(prevState => {
-      return{
+      return {
         cameras:
           json,
           ...prevState.cameras
-      }
-    })
-}
-  updateSearchBarText = (valueOfStateInItemList) => {
-    this.setState({
-      searchBarTextGlobal: valueOfStateInItemList
+    }
     })
   }
+  removeFromCart = (someParam) => {
+    console.log(someParam)
+    let filteredObj= this.state.cameras.filter(cam => cam.id == someParam)
+    axios.patch(`http://localhost:8082/api/cameras/${someParam}/remove`).then()
+  }
+
   render() {
     return (
       <div className="App">
@@ -34,16 +35,17 @@ class App extends Component {
         <div className="container">
           <div className="row">
             <div className="col">
-              <ItemList searchBarTextGlobal={this.state.searchBarTextGlobal} updateSearchBarText={this.updateSearchBarText} cameras={this.state.cameras}/>
+              <ItemList updateSearchBarText={this.updateSearchBarText} cameras={this.state.cameras}/>
             </div>
             <div className="col-4">
-              <ShoppingCart  cameras={this.state.cameras}/>
+              <ShoppingCart  removeFromCart={this.removeFromCart} cameras={this.state.cameras}/>
             </div>
           </div>
         </div>
       </div>
     );
 }
+
 }
 
 export default App;
@@ -56,5 +58,5 @@ export default App;
 // add styling to your cart --Done
 // add filter form - Filter functions for Camera Name
 // Call from Api instead of hardcoded state -- DONE
-// On Click update api to add item to cart
+// On Click update api to add item to cart -- Updates API But doesnt rerender the page. --Possible soloutions this.setState after updating api -- 
 // Have Shopping cart float based on user scroll 
