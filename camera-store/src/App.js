@@ -3,8 +3,6 @@ import Header from "./Components/Header";
 import ItemList from "./Components/ItemList";
 import ShoppingCart from "./Components/ShoppingCart";
 import axios from "axios"
-
-
 import './App.css';
 
 class App extends Component {
@@ -24,11 +22,10 @@ class App extends Component {
   }
   removeFromCart = (someParam) => {
     console.log("An item with an id of", someParam, "was removed from the cart")
-    let filteredObj= this.state.cameras.filter(cam => cam.id == someParam)
     axios.patch(`http://localhost:8082/api/cameras/${someParam}/remove`).then(
       this.setState(prevState => ({
         cameras: prevState.cameras.reduce((acc, cv) => {
-          if(cv.id == someParam ){
+          if(cv.id === Number(someParam) ){
             return [
               ...acc, 
               {
@@ -48,7 +45,7 @@ class App extends Component {
     .then(
       this.setState(prevState => ({
         cameras: prevState.cameras.reduce((acc, cv) => {
-          if(cv.id == someParam ){
+          if(cv.id === Number(someParam) ){
             return [
               ...acc, 
               {

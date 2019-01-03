@@ -17,8 +17,8 @@ class Item extends React.Component {
                     <CardTitle>Camera Name: {this.props.cameraDetail.name}</CardTitle>
                     <CardSubtitle>Price: ${this.props.cameraDetail.price} </CardSubtitle>
                     <CardText> Rating:
-                    <ReactStars value={this.props.cameraDetail.rating} edit={false} count={5} size={30}/>
                     </CardText>
+                    <ReactStars value={this.props.cameraDetail.rating} edit={false} count={5} size={30}/>
                     {this.props.cameraDetail.onSale ? <p>This item is on sale</p> : null}
                     <Button value={this.props.cameraDetail.id} onClick={this.addItemToCart} color="primary">Add to cart</Button>
                 </CardBody>

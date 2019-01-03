@@ -1,6 +1,6 @@
 import React from "react"
 import Item from "./Item"
-import {Form, Input, FormGroup, Label } from "reactstrap"
+import { Input, FormGroup, Label } from "reactstrap"
 
 class ItemList extends React.Component {
     state = {
@@ -19,7 +19,7 @@ class ItemList extends React.Component {
         })
     }
     render () {
-        let filteredCams = this.state.searchParam == 1 ? this.props.cameras.filter(cam => cam.name.toUpperCase().includes((this.state.searchBar).toUpperCase())) : 
+        let filteredCams = this.state.searchParam === "1" ? this.props.cameras.filter(cam => cam.name.toUpperCase().includes((this.state.searchBar).toUpperCase())) : 
         this.props.cameras.filter(cam => cam.rating >= this.state.searchBar)
         let camera = [];
         camera = filteredCams.map(item => <Item key={item.id} addToCart={this.props.addToCart} cameraDetail={item} />)
