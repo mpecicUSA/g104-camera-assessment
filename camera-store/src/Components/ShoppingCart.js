@@ -1,5 +1,6 @@
 import React from "react"
-import {Button, Badge} from "reactstrap"
+import {Button, Badge, NavItem} from "reactstrap"
+import { Link } from "react-router-dom"
 
 class ShoppingCart extends React.Component {
     removeFromCart = (e) => {
@@ -10,18 +11,19 @@ class ShoppingCart extends React.Component {
         let itemsInCart = this.props.cameras.filter(cam => cam.inCart)
         return (
             <div className="shopping-cart">
-                <h1>Your cart</h1>
+                <h1>Your Cart</h1>
                 <div>
                     {/* map over items in cart to show those items in cart */}
                 { itemsInCart.map(item => <div> 
-                        <Button color="light" value={item.id}onClick={this.removeFromCart} outline>{item.name} <Badge>Remove From Cart</Badge></Button>
+                        <Button color="dark" key={item.id} value={item.id} onClick={this.removeFromCart} outline>{item.name} <Badge>Remove From Cart</Badge></Button>
                     </div>)}
                 </div>
                 <p>Subtotal: ${(itemsInCart.reduce((acc, cv) => acc + cv.price ,0)).toFixed(2)}</p>
                 {/* Tax will be 8.6% */}
                 <p>Tax: ${(itemsInCart.reduce((acc, cv) => acc + cv.price ,0)*.086).toFixed(2)} </p> 
                 <p>Total: ${(itemsInCart.reduce((acc, cv) => acc + cv.price ,0)*1.086).toFixed(2)}</p>
-                <button> Checkout</button>
+                        <Link to="/checkout">Checkout</Link>
+
 
             </div>
             )

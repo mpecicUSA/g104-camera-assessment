@@ -6,10 +6,10 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
     UncontrolledDropdown,
-    DropdownMenu,
-    DropdownItem } from 'reactstrap';
+    DropdownMenu
+} from 'reactstrap';
+import {Link} from "react-router-dom"
 
 class Header extends React.Component{
     constructor(props) {
@@ -18,7 +18,7 @@ class Header extends React.Component{
         this.state = {
         isOpen: false
         };
-    }
+    } 
     toggle() {
         this.setState({
         isOpen: !this.state.isOpen
@@ -27,19 +27,19 @@ class Header extends React.Component{
     render () {
         return (
             <div>
-            <Navbar color="light" light expand="md">
+            <Navbar color="dark" dark expand="md">
                 <NavbarBrand href="/">Cameras R Us</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                     <NavItem>
-                        <NavLink href="/components/">Store</NavLink>
+                        <Link to="/">Store</Link>
+                    </NavItem>
+                    <NavItem>
+                        <Link to="/checkout">Cart</Link>
                     </NavItem>
                     <UncontrolledDropdown nav inNavbar>
                     <DropdownMenu right>
-                        <DropdownItem>
-                        Store
-                        </DropdownItem>
                     </DropdownMenu>
                     </UncontrolledDropdown>
                 </Nav>

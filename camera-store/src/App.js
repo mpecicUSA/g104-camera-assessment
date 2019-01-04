@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import Header from "./Components/Header";
 import ItemList from "./Components/ItemList";
 import ShoppingCart from "./Components/ShoppingCart";
+import Checkout from "./Components/Checkout"
+import Miss from "./Components/Miss"
 import axios from "axios"
 import './App.css';
+import { BrowserRouter,
+Route} from "react-router-dom"
 
 class App extends Component {
   state = {
@@ -62,19 +66,24 @@ class App extends Component {
 
   render() {
     return (
+      <BrowserRouter>
       <div className="App">
         <Header />
         <div className="container">
+        <Route exact path="/checkout" render={ ()=> <Checkout/>}></Route>
+        
           <div className="row">
             <div className="col">
-              <ItemList updateSearchBarText={this.updateSearchBarText} addToCart={this.addToCart} cameras={this.state.cameras}/>
+              <Route exact path="/" render={ () =>  <ItemList updateSearchBarText={this.updateSearchBarText} addToCart={this.addToCart} cameras={this.state.cameras}/>} ></Route>
             </div>
             <div className="col-4">
-              <ShoppingCart  removeFromCart={this.removeFromCart} cameras={this.state.cameras}/>
+              <Route exact path="/" render={() => <ShoppingCart  removeFromCart={this.removeFromCart} cameras={this.state.cameras}/>}></Route>
             </div>
           </div>
         </div>
       </div>
+      {/* <Route render={ () => <Miss />}></Route> */}
+      </BrowserRouter>
     );
 }
 
@@ -82,13 +91,3 @@ class App extends Component {
 
 export default App;
 
-
-//Todos
-// Style Item list and shopping cart to take up 80/20 --DONE
-// style images so all pictures are same size --DONE
-// Place each camera item inside of a card styling --DONE
-// add styling to your cart --Done
-// add filter form - Filter functions for Camera Name
-// Call from Api instead of hardcoded state -- DONE
-// On Click update api to add item to cart -- DONE ADD and REMOVE  
-// Have Shopping cart float based on user scroll 
